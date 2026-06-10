@@ -12,7 +12,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,28 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role'     => ['sometimes', 'string', 'in:user,admin'],
+        ];
+    }
+
+    public function bodyParameters(): array
+    {
+        return [
+            'name' => [
+                'description' => 'The user\'s full name',
+                'example' => 'John Doe',
+            ],
+            'email' => [
+                'description' => 'The user\'s email address',
+                'example' => 'john@example.com',
+            ],
+            'password' => [
+                'description' => 'Minimum 8 characters',
+                'example' => 'password123',
+            ],
         ];
     }
 }
