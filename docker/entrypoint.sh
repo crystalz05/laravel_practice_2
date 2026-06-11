@@ -12,7 +12,7 @@ fi
 # ── Inject runtime env vars into .env (Render sets them as process envs) ──
 # These overwrite any file-level values so Docker env vars always win.
 for var in APP_KEY APP_ENV APP_URL APP_DEBUG \
-           DB_CONNECTION DB_HOST DB_PORT DB_DATABASE DB_USERNAME DB_PASSWORD \
+           DB_CONNECTION DB_HOST DB_PORT DB_DATABASE DB_USERNAME DB_PASSWORD DB_SSLMODE \
            CACHE_STORE SESSION_DRIVER QUEUE_CONNECTION \
            MAIL_MAILER MAIL_HOST MAIL_PORT MAIL_USERNAME MAIL_PASSWORD MAIL_FROM_ADDRESS; do
     val=$(printenv "$var" 2>/dev/null || true)
