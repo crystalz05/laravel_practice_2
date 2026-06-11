@@ -17,11 +17,11 @@ for var in APP_KEY APP_ENV APP_URL APP_DEBUG \
            MAIL_MAILER MAIL_HOST MAIL_PORT MAIL_USERNAME MAIL_PASSWORD MAIL_FROM_ADDRESS; do
     val=$(printenv "$var" 2>/dev/null || true)
     if [ -n "$val" ]; then
-        # Replace or append the variable in .env
+        # Replace or append the variable in .env (wrapped in quotes to handle special characters like #)
         if grep -q "^${var}=" /var/www/html/.env; then
-            sed -i "s|^${var}=.*|${var}=${val}|" /var/www/html/.env
+            sed -i "s|^${var}=.*|${var}=\"${val}\"|" /var/www/html/.env
         else
-            echo "${var}=${val}" >> /var/www/html/.env
+            echo "${var}=\"${val}\"" >> /var/www/html/.env
         fi
     fi
 done
